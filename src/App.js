@@ -3,7 +3,7 @@ import {Route, Switch} from 'react-router-dom'
 
 import NavBar from './NavBar'
 import AboutPage from './components/AboutPage'
-import JokeBookContainer from './JokeBookContainer'
+import RandomJokePage from './RandomJokePage'
 
 class App extends React.Component {
   state = {
@@ -44,7 +44,7 @@ class App extends React.Component {
         <NavBar />
         <Switch>
           <Route exact path="/" render={() => (
-            <JokeBookContainer
+            <RandomJokePage
               currentJoke={this.state.currentJoke}
               handleClick={this.handleClick}
             />

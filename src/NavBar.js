@@ -2,9 +2,7 @@ import React from 'react'
 import {NavLink} from 'react-router-dom'
 import {Menu} from 'semantic-ui-react'
 
-import AboutPage from './components/AboutPage'
-
-
+//Functional Component, links to different render pages
 const NavBar = props => {
 
   return(
@@ -13,9 +11,23 @@ const NavBar = props => {
         <Menu.Item  icon='jenkins'/>
       </NavLink>
 
-      <NavLink activeClassName="ui active item" className="ui item" to="/about">
-        <h3 className="ui header">About</h3>
+      <NavLink to="/profile">
+        <Menu.Item>Profile</Menu.Item>
       </NavLink>
+
+      <NavLink to="/about">
+        <Menu.Item>About</Menu.Item>
+      </NavLink>
+
+      <NavLink to="/login">
+        <Menu.Item>Log-In</Menu.Item>
+      </NavLink>
+
+      <NavLink to="/signup">
+        <Menu.Item>Sign-Up</Menu.Item>
+      </NavLink>
+
+
     </Menu>
   )
 }

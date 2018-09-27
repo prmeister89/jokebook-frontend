@@ -1,15 +1,18 @@
 import React from 'react';
-import {Button} from 'semantic-ui-react'
+import {Button, Icon, Card, Container} from 'semantic-ui-react'
 
 
 const Joke = (props) => {
   return(
-    <div>
-      <div>
-        <p>{props.currentJoke.joke}</p>
-      </div>
-      <Button onClick={() => props.handleClick()}>Tell me a joke!</Button>
-    </div>
+    <Container>
+      <Card centered>
+        <Card.Content>{props.currentJoke.joke}</Card.Content>
+        <Button icon labelPosition='right' basic color='blue' onClick={() => props.handleClick()}>
+        Next Joke
+        <Icon name='right arrow' />
+        </Button>
+      </Card>
+    </Container>
   )
 }
 
