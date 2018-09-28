@@ -2,12 +2,15 @@ import React from 'react';
 import {Route, Switch} from 'react-router-dom'
 
 import NavBar from './NavBar'
-import AboutPage from './components/AboutPage'
 import RandomJokePage from './RandomJokePage'
+import ProfileContainer from './containers/ProfileContainer'
+import LogInForm from './components/LogInForm'
+import AboutPage from './components/AboutPage'
 
 class App extends React.Component {
   state = {
-    currentJoke: {}
+    currentJoke: {},
+    currentUser: {}
   }
 
   componentDidMount(){
@@ -22,6 +25,7 @@ class App extends React.Component {
         currentJoke: json
       })
     })
+    this.getUserInfo()
   }
 
   handleClick = (e) => {
@@ -38,6 +42,17 @@ class App extends React.Component {
     })
   }
 
+  getUserInfo = () => {
+    fetch('http://localhost:3001/api/v1/users')
+    .then(res => res.json())
+    .then(data => {
+      this.setState({
+        currentUser: data[0]
+      })
+    })
+  }
+
+
   render(){
     return(
       <React.Fragment>
@@ -50,7 +65,12 @@ class App extends React.Component {
             />
           )}
           />
-          <Route path="/about" component = {AboutPage} />
+          <Route exact path="/profile" render={() => (
+            <ProfileContainer
+            />
+          )} />
+          <Route exact path="/login" component = {LogInForm} />
+          <Route exact path="/about" component = {AboutPage} />
         </Switch>
       </React.Fragment>
     )

@@ -11,19 +11,19 @@ const NavBar = props => {
         <Menu.Item  icon='jenkins'/>
       </NavLink>
 
-      <NavLink to="/profile">
+      <NavLink exact to="/profile">
         <Menu.Item>Profile</Menu.Item>
       </NavLink>
 
-      <NavLink to="/about">
+      <NavLink exact to="/about">
         <Menu.Item>About</Menu.Item>
       </NavLink>
 
-      <NavLink to="/login">
+      <NavLink exact to="/login">
         <Menu.Item>Log-In</Menu.Item>
       </NavLink>
 
-      <NavLink to="/signup">
+      <NavLink exact to="/signup">
         <Menu.Item>Sign-Up</Menu.Item>
       </NavLink>
 
