@@ -8,7 +8,7 @@ export default class UserContainer extends Component {
     return(
       <div>
         UserContainer
-        <UserDetails />
+        <UserDetails user={this.props.user}/>
         <UserForm />
       </div>
 

@@ -8,7 +8,7 @@ class ProfileContainer extends React.Component {
   render() {
     return(
       <React.Fragment>
-        <h3>ProfileContainer</h3>
+        <UserContainer user={this.props.user}/>
       </React.Fragment>
     )
   }
