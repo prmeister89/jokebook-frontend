@@ -13,7 +13,10 @@ class JokesContainer extends React.Component {
           </Header>
           <Grid columns={1}>
             {this.props.userJokes ? this.props.userJokes.map(joke =>
-              <Joke currentJoke={joke}/>) : null}
+              <Joke
+                currentJoke={joke}
+                handleDeleteJoke={this.props.handleDeleteJoke}
+              />) : null}
           </Grid>
         </Container>
       </React.Fragment>

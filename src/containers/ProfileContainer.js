@@ -17,6 +17,7 @@ class ProfileContainer extends React.Component {
             <JokesContainer
               user={this.props.user}
               userJokes={this.props.userJokes}
+              handleDeleteJoke={this.props.handleDeleteJoke}
             />
           </Grid.Column>
 

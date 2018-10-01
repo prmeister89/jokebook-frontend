@@ -56,17 +56,29 @@ class App extends React.Component {
         "user_id": this.state.currentUser.id
       })
     })
-      .then(res => res.json())
-      .then(joke => {
-        this.setState({
-          currentUser: {
-            jokes: [
-              ...this.state.currentUser.jokes,
-              joke
-            ]
-          }
-        })
+    .then(res => res.json())
+    .then(joke => {
+      this.setState({
+        currentUser: {
+          ...this.state.currentUser,
+          jokes: [
+            ...this.state.currentUser.jokes,
+            joke
+          ]
+        }
       })
+    })
+    console.log(this.state.currentUser)
+  }
+
+  handleDeleteJoke = (e) => {
+    // console.log(e)
+    // console.log(e.id)
+    fetch(`http://localhost:3001/api/v1/jokes/${e.id}`, {
+      method: 'DELETE'
+    })
+    .then(res => res.json())
+    .then(data => this.getUserInfo())
   }
 
   getUserInfo = () => {
@@ -79,9 +91,6 @@ class App extends React.Component {
     })
   }
 
-  addJokeToJokeList = () => {
-    //do stuff
-  }
 
 
   render(){
@@ -101,6 +110,7 @@ class App extends React.Component {
             <ProfileContainer
               user={this.state.currentUser}
               userJokes={this.state.currentUser.jokes}
+              handleDeleteJoke={this.handleDeleteJoke}
             />
           )} />
           <Route exact path="/login" component = {LogInForm} />

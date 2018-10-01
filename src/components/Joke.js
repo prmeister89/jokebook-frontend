@@ -2,21 +2,23 @@ import React from 'react';
 import {Header, Card, Segment, Button, Icon, Label} from 'semantic-ui-react'
 
 
-const Joke = ({ currentJoke }) => {
+const Joke = ({ currentJoke, handleDeleteJoke }) => {
   return(
     <Card color='blue'>
 
       <Card.Content>
         <Card.Header>
-        <Button floated='right' as='div' labelPosition='right'>
-        <Icon color='red' name='remove'/>
-        </Button>
-        <br></br>
+          <Button floated='right' as='div' labelPosition='right' onClick={() => handleDeleteJoke(currentJoke)}>
+          <Icon color='red' name='remove'/>
+          </Button>
+          <br></br>
         </Card.Header>
-        <Card.Description textAlign='left'>
+
+        <Card.Description>
           {currentJoke.joke}
         </Card.Description>
       </Card.Content>
+
       <Card.Content>
         <Button floated='right' as='div' labelPosition='right'>
           <Button icon>
