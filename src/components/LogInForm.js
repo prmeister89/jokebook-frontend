@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {Form, Button} from 'semantic-ui-react'
+import React from 'react'
+// import {Form, Button} from 'semantic-ui-react'
 
 const LogInForm = (props) => {
   // handleSubmit = () => {

@@ -10,7 +10,8 @@ import AboutPage from './components/AboutPage'
 class App extends React.Component {
   state = {
     currentJoke: {},
-    currentUser: {}
+    currentUser: {},
+    currentUserJokes: []
   }
 
   componentDidMount(){
@@ -86,7 +87,8 @@ class App extends React.Component {
     .then(res => res.json())
     .then(data => {
       this.setState({
-        currentUser: data[0]
+        currentUser: data[0],
+        currentUserJokes: data[0].jokes
       })
     })
   }
@@ -100,6 +102,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" render={() => (
             <RandomJokePage
+              currentUserJokes={this.state.currentUserJokes}
               currentJoke={this.state.currentJoke}
               handleNextClick={this.handleNextClick}
               handleAddJoke={this.handleAddJoke}
@@ -108,6 +111,7 @@ class App extends React.Component {
           />
           <Route exact path="/profile" render={() => (
             <ProfileContainer
+
               user={this.state.currentUser}
               userJokes={this.state.currentUser.jokes}
               handleDeleteJoke={this.handleDeleteJoke}

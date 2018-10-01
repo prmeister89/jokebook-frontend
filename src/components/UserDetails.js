@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card, Header, Image} from 'semantic-ui-react'
+import {Card, Image} from 'semantic-ui-react'
 
 const UserDetails = (props) => {
   return (

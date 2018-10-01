@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid, Segment} from 'semantic-ui-react'
+import {Grid} from 'semantic-ui-react'
 
 import UserContainer from './UserContainer'
 import JokesContainer from './JokesContainer'
@@ -15,6 +15,7 @@ class ProfileContainer extends React.Component {
           </Grid.Column>
           <Grid.Column>
             <JokesContainer
+              currentUserJokes={this.props.currentUserJokes}
               user={this.props.user}
               userJokes={this.props.userJokes}
               handleDeleteJoke={this.props.handleDeleteJoke}
