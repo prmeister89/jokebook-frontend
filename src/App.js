@@ -28,7 +28,7 @@ class App extends React.Component {
     this.getUserInfo()
   }
 
-  handleClick = (e) => {
+  handleNextClick = (e) => {
     fetch(`https://icanhazdadjoke.com/`, {
       headers: {
         Accept: "application/json"
@@ -42,6 +42,33 @@ class App extends React.Component {
     })
   }
 
+  handleAddJoke = (e) => {
+    //e=joke description
+    // console.log(e)
+    fetch(`http://localhost:3001/api/v1/jokes`, {
+      method: 'POST',
+      headers: {
+        "Accept":"application/json",
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify({
+        "joke": e,
+        "user_id": this.state.currentUser.id
+      })
+    })
+      .then(res => res.json())
+      .then(joke => {
+        this.setState({
+          currentUser: {
+            jokes: [
+              ...this.state.currentUser.jokes,
+              joke
+            ]
+          }
+        })
+      })
+  }
+
   getUserInfo = () => {
     fetch('http://localhost:3001/api/v1/users')
     .then(res => res.json())
@@ -50,6 +77,10 @@ class App extends React.Component {
         currentUser: data[0]
       })
     })
+  }
+
+  addJokeToJokeList = () => {
+    //do stuff
   }
 
 
@@ -61,13 +92,15 @@ class App extends React.Component {
           <Route exact path="/" render={() => (
             <RandomJokePage
               currentJoke={this.state.currentJoke}
-              handleClick={this.handleClick}
+              handleNextClick={this.handleNextClick}
+              handleAddJoke={this.handleAddJoke}
             />
           )}
           />
           <Route exact path="/profile" render={() => (
             <ProfileContainer
               user={this.state.currentUser}
+              userJokes={this.state.currentUser.jokes}
             />
           )} />
           <Route exact path="/login" component = {LogInForm} />

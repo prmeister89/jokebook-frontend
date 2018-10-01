@@ -11,7 +11,7 @@ class UserForm extends Component {
     onClose={()=> this.props.closeUpdateModal()}
     size={'large'}
      trigger={
-      <Button >
+      <Button>
         Edit Profile
       </Button>}  >
     <Modal.Content>

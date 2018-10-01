@@ -1,16 +1,20 @@
 import React, {Component} from 'react'
 import UserDetails from '../components/UserDetails'
 import UserForm from '../components/UserForm'
+import {Grid} from 'semantic-ui-react'
 
 export default class UserContainer extends Component {
 
   render() {
     return(
-      <div>
-        UserContainer
-        <UserDetails user={this.props.user}/>
-        <UserForm />
-      </div>
+      <Grid columns={1}>
+        <Grid.Column>
+          <UserDetails user={this.props.user}/>
+        </Grid.Column>
+        <Grid.Column>
+          <UserForm />
+        </Grid.Column>
+      </Grid>
 
     )
   }
