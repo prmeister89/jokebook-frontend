@@ -11,10 +11,13 @@ class ProfileContainer extends React.Component {
       <React.Fragment>
         <Grid columns={2}>
           <Grid.Column>
-            <UserContainer user={this.props.user}/>
+            <UserContainer
+            userInfo={this.props.userInfo}
+            user={this.props.user}/>
           </Grid.Column>
           <Grid.Column>
             <JokesContainer
+              userInfo={this.props.userInfo}
               currentUserJokes={this.props.currentUserJokes}
               user={this.props.user}
               userJokes={this.props.userJokes}

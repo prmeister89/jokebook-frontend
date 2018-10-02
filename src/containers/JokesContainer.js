@@ -11,7 +11,7 @@ class JokesContainer extends React.Component {
           My Joke List
           </Header>
           <Grid columns={1}>
-            {this.props.userJokes ? this.props.userJokes.map(joke =>
+            {this.props.userInfo ? this.props.userInfo.jokes.map(joke =>
               <Joke
                 currentUserJokes={this.props.currentUserJokes}
                 key=""

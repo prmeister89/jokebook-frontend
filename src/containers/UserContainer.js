@@ -9,7 +9,9 @@ export default class UserContainer extends Component {
     return(
       <Grid columns={1}>
         <Grid.Column>
-          <UserDetails user={this.props.user}/>
+          <UserDetails
+          userInfo={this.props.userInfo}
+          user={this.props.user}/>
         </Grid.Column>
         <Grid.Column>
           <UserForm />
