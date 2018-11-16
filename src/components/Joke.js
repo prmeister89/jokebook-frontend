@@ -2,7 +2,7 @@ import React from 'react';
 import {Card, Button, Icon, Label} from 'semantic-ui-react'
 
 
-const Joke = ({ currentJoke, handleDeleteJoke, currentUserJokes }) => {
+const Joke = ({ currentJoke, handleDeleteJoke }) => {
   return(
     <Card color='blue'>
 

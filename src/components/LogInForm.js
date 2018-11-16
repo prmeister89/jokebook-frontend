@@ -19,6 +19,7 @@ class LoginForm extends React.Component {
       name: this.state.name,
       password: this.state.password
     };
+    console.log(params)
     fetch(url, {
       method: "POST",
       body: JSON.stringify(params),
@@ -26,11 +27,12 @@ class LoginForm extends React.Component {
         "Content-Type": "application/json"
       }
     })
-    .then(r => r.json())
+    .then(response => response.json())
     .then(response => {
       console.log(response)
       localStorage.setItem("token", response.token);
       this.props.updateUserInfo(response.user_info);
+      // this.props.fetchUserJokes();
       this.props.history.push("/profile");
     });
   };

@@ -1,9 +1,10 @@
 import React from 'react'
-import {Container, Header, Grid} from 'semantic-ui-react'
+import {Container, Header, Grid } from 'semantic-ui-react'
 import Joke from '../components/Joke'
 
 class JokesContainer extends React.Component {
   render() {
+
     return(
       <React.Fragment>
         <Container>
@@ -11,10 +12,9 @@ class JokesContainer extends React.Component {
           My Joke List
           </Header>
           <Grid columns={1}>
-            {this.props.userInfo ? this.props.userInfo.jokes.map(joke =>
+            {this.props.userInfo.jokes ? this.props.userInfo.jokes.map(joke =>
               <Joke
-                currentUserJokes={this.props.currentUserJokes}
-                key=""
+                key={joke.id}
                 currentJoke={joke}
                 handleDeleteJoke={this.props.handleDeleteJoke}
               />) : null}

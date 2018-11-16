@@ -10,10 +10,8 @@ import NotFound from './components/NotFound'
 
 class App extends React.Component {
   state = {
-    userInfo: null
-    // currentJoke: {},
-    // currentUser: {},
-    // currentUserJokes: []
+    userInfo: null,
+    currentJoke: []
   }
 
   updateUserInfo = userInfo => this.setState({ userInfo });
@@ -34,19 +32,34 @@ class App extends React.Component {
         this.props.history.push("/profile");
       })
     }
+    this.fetchRandomJoke()
   }
-  //   fetch(`https://icanhazdadjoke.com/`, {
+
+  fetchRandomJoke = () => {
+    fetch(`https://icanhazdadjoke.com/`, {
+      headers: {
+        Accept: "application/json"
+      }
+    })
+    .then(res => res.json())
+    .then(json => {
+      this.setState({
+        currentJoke: json
+      })
+    })
+  }
+
+  // fetchUserJokes = () => {
+  //   const url = `http://localhost:3001/api/v1/users/${this.state.userInfo.id}/jokes`;
+  //   const token = localStorage.getItem("token");
+  //   fetch(url, {
   //     headers: {
-  //       Accept: "application/json"
+  //       Accept: "application/json",
+  //       Authorization: `Bearer ${token}`
   //     }
   //   })
   //   .then(res => res.json())
-  //   .then(json => {
-  //     this.setState({
-  //       currentJoke: json
-  //     })
-  //   })
-  //   this.getUserInfo()
+  //   .then(json => console.log(json))
   // }
 
   logout = () => {
@@ -54,89 +67,105 @@ class App extends React.Component {
     this.setState({ userInfo: null})
   }
 
-  // handleNextClick = (e) => {
-  //   fetch(`https://icanhazdadjoke.com/`, {
-  //     headers: {
-  //       Accept: "application/json"
-  //     }
-  //   })
-  //   .then(res => res.json())
-  //   .then(json => {
-  //     this.setState({
-  //       currentJoke: json
-  //     })
-  //   })
-  // }
+  handleNextClick = (e) => {
+    fetch(`https://icanhazdadjoke.com/`, {
+      headers: {
+        Accept: "application/json"
+      }
+    })
+    .then(res => res.json())
+    .then(json => {
+      this.setState({
+        currentJoke: json
+      })
+    })
+  }
 
-  // handleAddJoke = (e) => {
-  //   //e=joke description
-  //   // console.log(e)
-  //   fetch(`http://localhost:3001/api/v1/jokes`, {
-  //     method: 'POST',
-  //     headers: {
-  //       "Accept":"application/json",
-  //       "Content-Type":"application/json"
-  //     },
-  //     body: JSON.stringify({
-  //       "joke": e,
-  //       "user_id": this.state.currentUser.id
-  //     })
-  //   })
-  //   .then(res => res.json())
-  //   .then(joke => {
-  //     this.setState({
-  //       currentUser: {
-  //         ...this.state.currentUser,
-  //         jokes: [
-  //           ...this.state.currentUser.jokes,
-  //           joke
-  //         ]
-  //       }
-  //     })
-  //   })
-  //   console.log(this.state.currentUser)
-  // }
+  handleAddJoke = (e) => {
+    //e=joke description
+    // console.log(e)
+    const token = localStorage.getItem("token")
+    fetch(`http://localhost:3001/api/v1/jokes`, {
+      method: 'POST',
+      headers: {
+        "Accept":"application/json",
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        "joke": e,
+        "user_id": this.state.userInfo.id
+      })
+    })
+    .then(res => res.json())
+    .then(joke => {
+      this.setState({
+          userInfo: {
+            ...this.state.userInfo.jokes,
+            joke
+          }
+      })
+    })
+  }
 
-  // handleDeleteJoke = (e) => {
-  //   // console.log(e)
-  //   // console.log(e.id)
-  //   fetch(`http://localhost:3001/api/v1/jokes/${e.id}`, {
-  //     method: 'DELETE'
-  //   })
-  //   .then(res => res.json())
-  //   .then(data => this.getUserInfo())
-  // }
-
-  // getUserInfo = () => {
-  //   fetch('http://localhost:3001/api/v1/users')
-  //   .then(res => res.json())
-  //   .then(data => {
-  //     this.setState({
-  //       currentUser: data[0],
-  //       currentUserJokes: data[0].jokes
-  //     })
-  //   })
-  // }
-
-
+  handleDeleteJoke = (e) => {
+    // console.log(e)
+    // console.log(e.id)
+    const token = localStorage.getItem("token")
+    fetch(`http://localhost:3001/api/v1/jokes/${e.id}`, {
+      method: 'DELETE',
+      headers: {
+        "Accept":"application/json",
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      this.setState({
+        userInfo: {
+          jokes: [
+            this.state.userInfo.jokes
+          ]
+        }
+      })
+    })
+  }
 
   render(){
     return(
       <React.Fragment>
         <NavBar loggedIn={!!this.state.userInfo} logout={this.logout}/>
+
         <Switch>
-          <Route exact path="/" render={() => <Redirect to="/profile" />} />
+
+          <Route exact path="/" render={() => (<Redirect to="/home" />)} />
+          <Route exact path="/home" render={() =>
+            <RandomJokePage
+              currentUserJokes={this.state.userInfo.jokes}
+              currentJoke={this.state.currentJoke}
+              handleNextClick={this.handleNextClick}
+              handleAddJoke={this.handleAddJoke}
+            />}
+          />
 
           <Route exact path="/profile" render={() =>
-            this.state.userInfo ?
+            !!this.state.userInfo ?
               (<ProfileContainer
                 userInfo={this.state.userInfo}
-                {...this.state.userInfo}/>)  ///need to pass in currentUser from state here
+                currentUserJokes={this.state.userInfo.jokes}
+                handleDeleteJoke={this.handleDeleteJoke}
+                loading={this.state.loading}
+              />)  ///need to pass in currentUser from state here
               :
               (<Redirect to="/login" />)
           }
           />
-          <Route exact path="/login" render={() => <LogInForm updateUserInfo={this.updateUserInfo} />}
+          <Route exact path="/login"
+            render={() =>
+              <LogInForm
+                updateUserInfo={this.updateUserInfo}
+                fetchUserJokes={this.fetchUserJokes}
+              />}
           />
           <Route component = {NotFound} />
         </Switch>

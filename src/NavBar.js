@@ -4,7 +4,7 @@ import {Menu} from 'semantic-ui-react'
 
 //Functional Component, links to different render pages
 const NavBar = props => {
-
+console.log(props)
   return(
     <Menu>
       <NavLink exact to="/">
@@ -19,9 +19,14 @@ const NavBar = props => {
         <Menu.Item>About</Menu.Item>
       </NavLink>
 
-      <NavLink exact to="/login">
-        <Menu.Item>Log-In</Menu.Item>
-      </NavLink>
+      {props.loggedIn ?
+        <NavLink exact to="/login">
+          <Menu.Item onClick={() => props.logout()}>Log-out</Menu.Item>
+        </NavLink>
+        :
+        <NavLink exact to="/login">
+          <Menu.Item>Log-In</Menu.Item>
+        </NavLink>}
 
       <NavLink exact to="/signup">
         <Menu.Item>Sign-Up</Menu.Item>

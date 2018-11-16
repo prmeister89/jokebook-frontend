@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid} from 'semantic-ui-react'
+import {Grid, Dimmer, Loader, Segment} from 'semantic-ui-react'
 
 import UserContainer from './UserContainer'
 import JokesContainer from './JokesContainer'
@@ -7,20 +7,30 @@ import JokesContainer from './JokesContainer'
 class ProfileContainer extends React.Component {
 
   render() {
+    console.log("props:", this.props)
+    // if (!!this.state.loading) {
+    //   return (
+    //     <div>
+    //       <Segment>
+    //         <Dimmer active>
+    //           <Loader content="Loading..." />
+    //         </Dimmer>
+    //       </Segment>
+    //     </div>
+    //   )
+    // }
     return(
       <React.Fragment>
         <Grid columns={2}>
           <Grid.Column>
             <UserContainer
             userInfo={this.props.userInfo}
-            user={this.props.user}/>
+            />
           </Grid.Column>
+
           <Grid.Column>
             <JokesContainer
               userInfo={this.props.userInfo}
-              currentUserJokes={this.props.currentUserJokes}
-              user={this.props.user}
-              userJokes={this.props.userJokes}
               handleDeleteJoke={this.props.handleDeleteJoke}
             />
           </Grid.Column>

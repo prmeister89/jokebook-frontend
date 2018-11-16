@@ -5,7 +5,7 @@ class RandomJokePage extends Component {
 
 
   render() {
-    let array = this.props.currentUserJokes.map(joke => joke.joke)
+    let array = this.props.currentUserJokes
     return (
       console.log(array),
       <React.Fragment>
