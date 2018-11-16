@@ -5,9 +5,11 @@ class RandomJokePage extends Component {
 
 
   render() {
-    let array = this.props.currentUserJokes
+    let array = this.props.currentUser.jokes
+    console.log(this.props)
+    console.log("array:", array)
+    // console.log(array.map(joke => joke.content).includes(this.props.currentJoke.joke))
     return (
-      console.log(array),
       <React.Fragment>
         <Header as='h1' textAlign='center'>
         Welcome to JokeBook!
@@ -20,13 +22,13 @@ class RandomJokePage extends Component {
 
           <Card.Content extra>
             <div className="ui two buttons">
-            {array.includes(this.props.currentJoke.joke) ?
-              <Button basic animated color="green">
+            {array.map(joke => joke.joke).includes(this.props.currentJoke.joke) ?
+              <Button basic animated color="green" onClick={() => window.alert("You already added that joke")}>
                 <Button.Content visible>
                   <Icon name='plus' />
                 </Button.Content>
                 <Button.Content hidden>
-                  Add Joke
+                  Joke Added
                 </Button.Content>
               </Button> :
               <Button basic animated color="green"

@@ -49,19 +49,6 @@ class App extends React.Component {
     })
   }
 
-  // fetchUserJokes = () => {
-  //   const url = `http://localhost:3001/api/v1/users/${this.state.userInfo.id}/jokes`;
-  //   const token = localStorage.getItem("token");
-  //   fetch(url, {
-  //     headers: {
-  //       Accept: "application/json",
-  //       Authorization: `Bearer ${token}`
-  //     }
-  //   })
-  //   .then(res => res.json())
-  //   .then(json => console.log(json))
-  // }
-
   logout = () => {
     localStorage.clear();
     this.setState({ userInfo: null})
@@ -83,9 +70,9 @@ class App extends React.Component {
 
   handleAddJoke = (e) => {
     //e=joke description
-    // console.log(e)
+    console.log(e)
     const token = localStorage.getItem("token")
-    fetch(`http://localhost:3001/api/v1/jokes`, {
+    fetch(`http://localhost:3001/api/v1/users/${this.state.userInfo.id}/jokes`, {
       method: 'POST',
       headers: {
         "Accept":"application/json",
@@ -100,10 +87,12 @@ class App extends React.Component {
     .then(res => res.json())
     .then(joke => {
       this.setState({
-          userInfo: {
+        userInfo: {
+          jokes: [
             ...this.state.userInfo.jokes,
             joke
-          }
+          ]
+        }
       })
     })
   }
@@ -141,7 +130,7 @@ class App extends React.Component {
           <Route exact path="/" render={() => (<Redirect to="/home" />)} />
           <Route exact path="/home" render={() =>
             <RandomJokePage
-              currentUserJokes={this.state.userInfo.jokes}
+              currentUser={this.state.userInfo}
               currentJoke={this.state.currentJoke}
               handleNextClick={this.handleNextClick}
               handleAddJoke={this.handleAddJoke}
