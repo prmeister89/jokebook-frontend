@@ -3,6 +3,7 @@ import {Card, Button, Icon, Label} from 'semantic-ui-react'
 
 
 const Joke = ({ currentJoke, handleDeleteJoke }) => {
+  console.log(currentJoke)
   return(
     <Card color='blue'>
 

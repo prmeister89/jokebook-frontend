@@ -3,7 +3,6 @@ import {Header, Button, Icon, Card} from 'semantic-ui-react'
 
 class RandomJokePage extends Component {
 
-
   render() {
     let array = this.props.currentUser.jokes
     console.log(this.props)

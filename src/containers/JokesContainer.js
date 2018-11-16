@@ -4,7 +4,7 @@ import Joke from '../components/Joke'
 
 class JokesContainer extends React.Component {
   render() {
-
+    console.log(this.props.userInfo)
     return(
       <React.Fragment>
         <Container>
