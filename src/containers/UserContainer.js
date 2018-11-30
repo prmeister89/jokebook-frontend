@@ -13,8 +13,15 @@ export default class UserContainer extends Component {
           userInfo={this.props.userInfo}
           user={this.props.user}/>
         </Grid.Column>
+
         <Grid.Column>
-          <UserForm />
+          <UserForm
+          userInfo={this.props.userInfo}
+          updateUserInfo={this.updateUserInfo}
+          isUpdateModalOpen={this.props.isUpdateModalOpen}
+          openUpdateModal={this.props.openUpdateModal}
+          closeUpdateModal={this.props.closeUpdateModal}
+          />
         </Grid.Column>
       </Grid>
 

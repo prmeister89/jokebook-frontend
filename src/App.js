@@ -12,7 +12,16 @@ import NotFound from './components/NotFound'
 class App extends React.Component {
   state = {
     userInfo: null,
-    currentJoke: []
+    currentJoke: [],
+    isUpdateModalOpen: false,
+  };
+
+  openUpdateModal = () => {
+    this.setState({ isUpdateModalOpen: true })
+  }
+
+  closeUpdateModal = () => {
+    this.setState({ isUpdateModalOpen: false })
   }
 
   updateUserInfo = userInfo => this.setState({ userInfo });
@@ -148,9 +157,13 @@ class App extends React.Component {
             !!this.state.userInfo ?
               (<ProfileContainer
                 userInfo={this.state.userInfo}
+                updateUserInfo={this.updateUserInfo}
                 currentUserJokes={this.state.userInfo.jokes}
                 handleDeleteJoke={this.handleDeleteJoke}
                 loading={this.state.loading}
+                isUpdateModalOpen={this.state.isUpdateModalOpen}
+                openUpdateModal={this.openUpdateModal}
+                closeUpdateModal={this.closeUpdateModal}
               />)  ///need to pass in currentUser from state here
               :
               (<Redirect to="/login" />)
