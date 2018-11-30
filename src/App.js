@@ -5,6 +5,7 @@ import NavBar from './NavBar'
 import RandomJokePage from './RandomJokePage'
 import ProfileContainer from './containers/ProfileContainer'
 import LogInForm from './components/LogInForm'
+import NewUserForm from './components/NewUserForm'
 import AboutPage from './components/AboutPage'
 import NotFound from './components/NotFound'
 
@@ -161,6 +162,9 @@ class App extends React.Component {
                 updateUserInfo={this.updateUserInfo}
                 fetchUserJokes={this.fetchUserJokes}
               />}
+          />
+          <Route exact path="/signup"
+            render={() => <NewUserForm updateUserInfo={this.updateUserInfo} />}
           />
           <Route component = {NotFound} />
         </Switch>

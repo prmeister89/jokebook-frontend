@@ -1,8 +1,8 @@
-import React from "react";
+import React, {Component} from 'react';
 import { withRouter } from "react-router";
-import { Button, Form, Segment, Message } from "semantic-ui-react";
+import { Button, Form, Segment, Message } from 'semantic-ui-react'
 
-class LoginForm extends React.Component {
+class NewUserForm extends Component {
   state = {
     name: "",
     password: ""
@@ -12,9 +12,9 @@ class LoginForm extends React.Component {
     this.setState({ [name]: value });
   };
 
-  handleLoginSubmit = () => {
+  handleSignUpSubmit = () => {
     // send the fetch!
-    const url = "http://localhost:3001/api/v1/login";
+    const url = "http://localhost:3001/api/v1/users";
     const params = {
       name: this.state.name,
       password: this.state.password
@@ -31,8 +31,9 @@ class LoginForm extends React.Component {
     .then(response => {
       console.log(response)
       localStorage.setItem("token", response.token);
-      this.props.updateUserInfo(response.user_info);
+      this.props.updateUserInfo(response.user);
       // this.props.fetchUserJokes();
+      console.log(this.props.history)
       this.props.history.push("/profile");
     });
   };
@@ -40,9 +41,9 @@ class LoginForm extends React.Component {
   render() {
     return (
       <Segment>
-      <h3>Please Log-In</h3>
+      <h3>Sign-Up!</h3>
         <Form
-          onSubmit={this.handleLoginSubmit}
+          onSubmit={this.handleSignUpSubmit}
           size="mini"
           key="mini"
           loading={this.props.authenticatingUser}
@@ -69,11 +70,11 @@ class LoginForm extends React.Component {
               value={this.state.password}
             />
           </Form.Group>
-          <Button type="submit">Login</Button>
+          <Button type="submit">Sign-Up</Button>
         </Form>
       </Segment>
-    );
+    )
   }
 }
 
-export default withRouter(LoginForm);
+export default withRouter(NewUserForm)
