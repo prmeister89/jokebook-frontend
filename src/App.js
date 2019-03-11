@@ -7,7 +7,7 @@ import ProfileContainer from './containers/ProfileContainer'
 import LogInForm from './components/LogInForm'
 import NewUserForm from './components/NewUserForm'
 import AboutPage from './components/AboutPage'
-import NotFound from './components/NotFound'
+// import NotFound from './components/NotFound'
 
 class App extends React.Component {
   state = {
@@ -108,6 +108,36 @@ class App extends React.Component {
     })
   }
 
+  handleUpdateUserBio = (bio) => {
+    //e=bio description
+    console.log(this.state.userInfo.id)
+
+    const token = localStorage.getItem("token")
+    fetch(`http://localhost:3001/api/v1/users/${this.state.userInfo.id}`, {
+      method: 'PATCH',
+      headers: {
+        "Accept":"application/json",
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        "user": {
+          "bio": bio
+        }
+      })
+    })
+    .then(res => res.json())
+    .then(bio => {
+      this.setState({
+        userInfo: {
+          ...this.state.userInfo,
+          bio: this.state.userInfo.bio
+        }
+      })
+    })
+    this.closeUpdateModal();
+  }
+
   handleDeleteJoke = (e) => {
     console.log(e)
     console.log(e.id)
@@ -158,6 +188,7 @@ class App extends React.Component {
               (<ProfileContainer
                 userInfo={this.state.userInfo}
                 updateUserInfo={this.updateUserInfo}
+                handleUpdateUserBio={this.handleUpdateUserBio}
                 currentUserJokes={this.state.userInfo.jokes}
                 handleDeleteJoke={this.handleDeleteJoke}
                 loading={this.state.loading}
@@ -179,7 +210,9 @@ class App extends React.Component {
           <Route exact path="/signup"
             render={() => <NewUserForm updateUserInfo={this.updateUserInfo} />}
           />
-          <Route component = {NotFound} />
+          <Route exact path="/about"
+            render={() => <AboutPage/>}
+          />
         </Switch>
       </React.Fragment>
     )

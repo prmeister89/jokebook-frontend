@@ -3,7 +3,7 @@ import { Modal, Button, Form } from 'semantic-ui-react'
 
 class UserForm extends Component {
   state = {
-    bio: ""
+    bio: this.props.userInfo.bio
   };
 
   handleChange = (e, { name, value }) => {
@@ -11,28 +11,6 @@ class UserForm extends Component {
     console.log(this.state.bio)
   };
 
-  handleUpdateBioSubmit = () => {
-    // send the fetch!
-    const url = "http://localhost:3001/api/v1/users";
-    const params = {
-      bio: this.state.bio
-    };
-    console.log(params)
-    fetch(url + `/${this.props.userInfo.id}`, {
-      method: "PATCH",
-      body: JSON.stringify(params),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then(response => response.json())
-    .then(response => {
-      console.log(response)
-      // this.props.updateUserInfo(response.user);
-      // console.log(this.props.history)
-      // this.props.history.push("/profile");
-    });
-  };
 
   render() {
     return(
@@ -49,7 +27,7 @@ class UserForm extends Component {
       >;
 
         <Modal.Content>
-          <Form onSubmit={this.handleUpdateBioSubmit}>
+          <Form onSubmit={() => this.props.handleUpdateUserBio(this.state.bio)}>
             <h2> Update Bio </h2>
               <Form.Input
               label="Bio:"

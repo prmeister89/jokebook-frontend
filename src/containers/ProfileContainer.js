@@ -25,6 +25,7 @@ class ProfileContainer extends React.Component {
           <Grid.Column>
             <UserContainer
             userInfo={this.props.userInfo}
+            handleUpdateUserBio={this.props.handleUpdateUserBio}
             isUpdateModalOpen={this.props.isUpdateModalOpen}
             openUpdateModal={this.props.openUpdateModal}
             closeUpdateModal={this.props.closeUpdateModal}

@@ -17,7 +17,8 @@ export default class UserContainer extends Component {
         <Grid.Column>
           <UserForm
           userInfo={this.props.userInfo}
-          updateUserInfo={this.updateUserInfo}
+          handleUpdateUserBio={this.props.handleUpdateUserBio}
+          updateUserInfo={this.props.updateUserInfo}
           isUpdateModalOpen={this.props.isUpdateModalOpen}
           openUpdateModal={this.props.openUpdateModal}
           closeUpdateModal={this.props.closeUpdateModal}
